@@ -1,46 +1,341 @@
-<script>
-  async function toggleVulnerabilities() {
-    const section = document.getElementById('vulnerability-section');
-    const btn = document.getElementById('toggle-btn');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brindavan Internet Audit</title>
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --card-border: rgba(0, 0, 0, 0.08);
+      --text: #1d1d1f;
+      --text-muted: #86868b;
+      --nav-bg: rgba(255, 255, 255, 0.72);
+      --segmented-bg: rgba(0, 0, 0, 0.05);
+      --segmented-active: #ffffff;
+      --table-header: rgba(0, 0, 0, 0.03);
+      --table-border: rgba(0, 0, 0, 0.06);
+      --badge-medium-bg: #fff1d6;
+      --badge-medium-text: #b25e02;
+      --badge-info-bg: #e3f2fd;
+      --badge-info-text: #0b6bc7;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
 
-    if (section.classList.contains('visible')) {
-      section.classList.remove('visible');
-      setTimeout(() => { section.style.display = 'none'; }, 400);
-      btn.textContent = 'Current Vulnerabilities';
-    } else {
-      btn.textContent = 'Connecting to Sophos...';
+    [data-theme="dark"] {
+      --bg: #000000;
+      --card-bg: rgba(28, 28, 30, 0.75);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --text: #f5f5f7;
+      --text-muted: #a1a1a6;
+      --nav-bg: rgba(28, 28, 30, 0.72);
+      --segmented-bg: rgba(255, 255, 255, 0.1);
+      --segmented-active: rgba(255, 255, 255, 0.2);
+      --table-header: rgba(255, 255, 255, 0.04);
+      --table-border: rgba(255, 255, 255, 0.08);
+      --badge-medium-bg: rgba(255, 159, 10, 0.2);
+      --badge-medium-text: #ff9f0a;
+      --badge-info-bg: rgba(10, 132, 255, 0.2);
+      --badge-info-text: #64d2ff;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    }
 
-      try {
-        // Calls the Cloudflare function backend
-        const res = await fetch('/api/sophos');
-        const data = await res.json();
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
 
-        renderTable(data.vulnerabilities);
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 16px 48px;
+    }
 
-        section.style.display = 'block';
-        setTimeout(() => { section.classList.add('visible'); }, 10);
-        btn.textContent = 'Hide Vulnerabilities';
-      } catch (err) {
-        console.error('API Error:', err);
-        btn.textContent = 'Current Vulnerabilities';
+    header {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--table-border);
+      margin-bottom: 32px;
+    }
+
+    .title-group h1 {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .title-group p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .theme-toggle-btn {
+      background: var(--segmented-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 980px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .theme-toggle-btn:hover {
+      opacity: 0.8;
+    }
+
+    .segmented-control {
+      display: flex;
+      background: var(--segmented-bg);
+      padding: 4px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      width: 100%;
+      max-width: 480px;
+      border: 1px solid var(--card-border);
+    }
+
+    .segmented-control button {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .segmented-control button.active {
+      background: var(--segmented-active);
+      color: var(--text);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .content-area {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      background: var(--table-header);
+      padding: 16px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--table-border);
+    }
+
+    td {
+      padding: 18px 20px;
+      font-size: 14px;
+      border-bottom: 1px solid var(--table-border);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .site-link {
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .site-note {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 980px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .badge-medium {
+      background: var(--badge-medium-bg);
+      color: var(--badge-medium-text);
+    }
+
+    .badge-info {
+      background: var(--badge-info-bg);
+      color: var(--badge-info-text);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="title-group">
+      <h1>Brindavan Internet Audit</h1>
+      <p>Report on gateway filter policies, bypass risks, and blocked academic resources</p>
+    </div>
+    <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
+      <span id="themeLabel">Dark Appearance</span>
+    </button>
+  </header>
+
+  <div class="segmented-control">
+    <button class="active" id="tabVulnerabilitiesBtn" onclick="showTab('vulnerabilities')">Vulnerabilities</button>
+    <button id="tabBlockedBtn" onclick="showTab('blocked')">Genuine Websites Blocked</button>
+  </div>
+
+  <div class="content-area">
+
+    <!-- Vulnerabilities Tab -->
+    <div id="vulnerabilities" class="tab-content active">
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 35%;">Vulnerability</th>
+              <th style="width: 20%;">Risk Level</th>
+              <th style="width: 45%;">Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="site-link">Microsoft Edge Add-ons Store Allowed</span>
+                <div class="site-note">microsoftedge.microsoft.com/addons</div>
+              </td>
+              <td>
+                <span class="badge badge-medium">Medium</span>
+              </td>
+              <td>
+                Unrestricted access to this store permits installation of third-party VPN and proxy extensions directly into the browser, enabling users to circumvent Sophos network controls.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Genuine Websites Blocked Tab -->
+    <div id="blocked" class="tab-content">
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 40%;">Website</th>
+              <th style="width: 25%;">Category</th>
+              <th style="width: 35%;">Observations</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="site-link">typingtest.me/certificate</span>
+              </td>
+              <td>
+                <span class="badge badge-info">Skill Certification</span>
+              </td>
+              <td>
+                Academic website used for earning basic typing certificates. Blocked by Sophos web filter, creating an incentive to use VPNs to access it.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="site-link">nda.nic.in</span>
+              </td>
+              <td>
+                <span class="badge badge-info">Official Defence Portal</span>
+              </td>
+              <td>
+                National Defence resource website under the government domain (.nic.in). Inadvertently restricted by the firewall, driving users to find alternate access routes.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(function(content) {
+        content.classList.remove('active');
+      });
+
+      document.querySelectorAll('.segmented-control button').forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+
+      document.getElementById(tabId).classList.add('active');
+
+      if (tabId === 'vulnerabilities') {
+        document.getElementById('tabVulnerabilitiesBtn').classList.add('active');
+      } else {
+        document.getElementById('tabBlockedBtn').classList.add('active');
       }
     }
-  }
 
-  function renderTable(items) {
-    const tbody = document.querySelector('table tbody');
-    tbody.innerHTML = items.map(item => `
-      <tr>
-        <td class="item-id">${item.id}</td>
-        <td><span class="severity-tag ${item.severity}">${item.severity}</span></td>
-        <td>
-          <strong>${item.title}</strong>
-          <div style="color: var(--text-secondary); font-size: 13px; margin-top: 2px;">
-            ${item.desc}
-          </div>
-        </td>
-        <td>${item.target}</td>
-      </tr>
-    `).join('');
-  }
-</script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const label = document.getElementById('themeLabel');
+
+      if (html.getAttribute('data-theme') === 'dark') {
+        html.removeAttribute('data-theme');
+        label.textContent = 'Dark Appearance';
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        label.textContent = 'Light Appearance';
+      }
+    }
+  </script>
+
+</body>
+</html>
