@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brindavan Web Security</title>
+  <style>
+    :root {
+      --bg: #fbfbfd;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --text-primary: #1d1d1f;
+      --text-secondary: #86868b;
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      --border: rgba(0, 0, 0, 0.08);
+      --tag-high: #ff3b30;
+      --tag-med: #ff9500;
+      --tag-low: #34c759;
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.47059;
+      padding: 0 20px;
+    }
+
+    /* Minimal Apple-style Nav */
+    header {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    .status-badge {
+      font-size: 12px;
+      color: var(--tag-low);
+      background: rgba(52, 199, 89, 0.1);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--tag-low);
+      border-radius: 50%;
+    }
+
+    /* Hero Section */
+    main {
+      max-width: 800px;
+      margin: 90px auto 120px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 52px;
+      line-height: 1.07692;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+    }
+
+    .subtitle {
+      font-size: 21px;
+      line-height: 1.381;
+      font-weight: 400;
+      color: var(--text-secondary);
+      max-width: 580px;
+      margin: 0 auto 36px;
+      letter-spacing: -0.01em;
+    }
+
+    /* Minimal Pill Button */
+    .btn {
+      display: inline-block;
+      background-color: var(--accent);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 400;
+      padding: 12px 24px;
+      border-radius: 980px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+      letter-spacing: -0.01em;
+    }
+
+    .btn:hover {
+      background-color: var(--accent-hover);
+      transform: scale(1.02);
+    }
+
+    /* Dynamic Table Container */
+    #vulnerability-section {
+      display: none;
+      margin-top: 54px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: left;
+    }
+
+    #vulnerability-section.visible {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .table-container {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th {
+      font-weight: 500;
+      color: var(--text-secondary);
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-primary);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(0, 0, 0, 0.015);
+    }
+
+    .severity-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .high {
+      background: rgba(255, 59, 48, 0.1);
+      color: var(--tag-high);
+    }
+
+    .medium {
+      background: rgba(255, 149, 0, 0.1);
+      color: var(--tag-med);
+    }
+
+    .low {
+      background: rgba(52, 199, 89, 0.1);
+      color: var(--tag-low);
+    }
+
+    .item-id {
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Footer */
+    footer {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 0 48px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">Brindavan Web Security</div>
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      Network Monitored
+    </div>
+  </header>
+
+  <main>
+    <h1>Strengthening Sophos & Perimeter Security</h1>
+    <p class="subtitle">Enforcing endpoint discipline, protocol routing, and domain controls across institution networks.</p>
+    
+    <button class="btn" id="toggle-btn" onclick="toggleVulnerabilities()">Current Vulnerabilities</button>
+
+    <div id="vulnerability-section">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 10%;">ID</th>
+              <th style="width: 20%;">Severity</th>
+              <th style="width: 50%;">Vector & Impact</th>
+              <th style="width: 20%;">Target Layer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="item-id">SEC-01</td>
+              <td><span class="severity-tag high">High</span></td>
+              <td>
+                <strong>Microsoft Extension Store accessible to students</strong>
+                <div style="color: var(--text-secondary); font-size: 13px; margin-top: 2px;">
+                  Permits installation of proxy & VPN extensions, circumventing Sophos domain policies.
+                </div>
+              </td>
+              <td>Browser Policy</td>
+            </tr>
+            <tr>
+              <td class="item-id">SEC-02</td>
+              <td><span class="severity-tag medium">Medium</span></td>
+              <td>
+                <strong>DNS-over-HTTPS (DoH) fallback unblocked</strong>
+                <div style="color: var(--text-secondary); font-size: 13px; margin-top: 2px;">
+                  Standard DNS queries encrypted via public resolvers, evading domain inspection.
+                </div>
+              </td>
+              <td>Sophos Firewall</td>
+            </tr>
+            <tr>
+              <td class="item-id">SEC-03</td>
+              <td><span class="severity-tag low">Low</span></td>
+              <td>
+                <strong>NTP and NetBIOS outbound port exposure</strong>
+                <div style="color: var(--text-secondary); font-size: 13px; margin-top: 2px;">
+                  Unrestricted broadcast protocols leaking internal subnet topology.
+                </div>
+              </td>
+              <td>Local Subnet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; Brindavan Web Security. Internal diagnostic interface.
+  </footer>
+
+  <script>
+    function toggleVulnerabilities() {
+      const section = document.getElementById('vulnerability-section');
+      const btn = document.getElementById('toggle-btn');
+      
+      if (section.classList.contains('visible')) {
+        section.classList.remove('visible');
+        setTimeout(() => { section.style.display = 'none'; }, 400);
+        btn.textContent = 'Current Vulnerabilities';
+      } else {
+        section.style.display = 'block';
+        setTimeout(() => { section.classList.add('visible'); }, 10);
+        btn.textContent = 'Hide Vulnerabilities';
+      }
+    }
+  </script>
+</body>
+</html>
