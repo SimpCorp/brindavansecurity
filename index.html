@@ -7,38 +7,52 @@
   <style>
     :root {
       --bg: #f5f5f7;
-      --card-bg: rgba(255, 255, 255, 0.85);
+      --card-bg: rgba(255, 255, 255, 0.82);
       --card-border: rgba(0, 0, 0, 0.08);
       --text: #1d1d1f;
       --text-muted: #86868b;
-      --nav-bg: rgba(255, 255, 255, 0.72);
-      --segmented-bg: rgba(0, 0, 0, 0.05);
+      --nav-bg: rgba(255, 255, 255, 0.75);
+      --segmented-bg: rgba(0, 0, 0, 0.06);
       --segmented-active: #ffffff;
-      --table-header: rgba(0, 0, 0, 0.03);
-      --table-border: rgba(0, 0, 0, 0.06);
+      --table-header: rgba(0, 0, 0, 0.025);
+      --table-border: rgba(0, 0, 0, 0.07);
+      --badge-high-bg: #ffebee;
+      --badge-high-text: #d32f2f;
       --badge-medium-bg: #fff1d6;
       --badge-medium-text: #b25e02;
+      --badge-low-bg: #e8f5e9;
+      --badge-low-text: #2e7d32;
       --badge-info-bg: #e3f2fd;
       --badge-info-text: #0b6bc7;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      --tag-bg: rgba(0, 0, 0, 0.04);
+      --tag-border: rgba(0, 0, 0, 0.08);
+      --input-bg: #ffffff;
     }
 
     [data-theme="dark"] {
       --bg: #000000;
-      --card-bg: rgba(28, 28, 30, 0.75);
+      --card-bg: rgba(28, 28, 30, 0.78);
       --card-border: rgba(255, 255, 255, 0.12);
       --text: #f5f5f7;
       --text-muted: #a1a1a6;
-      --nav-bg: rgba(28, 28, 30, 0.72);
+      --nav-bg: rgba(28, 28, 30, 0.75);
       --segmented-bg: rgba(255, 255, 255, 0.1);
-      --segmented-active: rgba(255, 255, 255, 0.2);
+      --segmented-active: rgba(255, 255, 255, 0.22);
       --table-header: rgba(255, 255, 255, 0.04);
       --table-border: rgba(255, 255, 255, 0.08);
-      --badge-medium-bg: rgba(255, 159, 10, 0.2);
+      --badge-high-bg: rgba(255, 69, 58, 0.22);
+      --badge-high-text: #ff453a;
+      --badge-medium-bg: rgba(255, 159, 10, 0.22);
       --badge-medium-text: #ff9f0a;
-      --badge-info-bg: rgba(10, 132, 255, 0.2);
+      --badge-low-bg: rgba(48, 209, 88, 0.22);
+      --badge-low-text: #30d158;
+      --badge-info-bg: rgba(10, 132, 255, 0.22);
       --badge-info-text: #64d2ff;
-      --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      --tag-bg: rgba(255, 255, 255, 0.06);
+      --tag-border: rgba(255, 255, 255, 0.1);
+      --input-bg: rgba(44, 44, 46, 0.8);
     }
 
     * {
@@ -56,22 +70,22 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 16px 48px;
+      padding: 0 20px 60px;
     }
 
     header {
       width: 100%;
-      max-width: 900px;
+      max-width: 1060px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 24px 0;
+      padding: 28px 0;
       border-bottom: 1px solid var(--table-border);
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
 
     .title-group h1 {
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 600;
       letter-spacing: -0.02em;
     }
@@ -82,7 +96,13 @@
       margin-top: 4px;
     }
 
-    .theme-toggle-btn {
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .action-btn {
       background: var(--segmented-bg);
       border: 1px solid var(--card-border);
       color: var(--text);
@@ -91,12 +111,13 @@
       cursor: pointer;
       font-size: 13px;
       font-weight: 500;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
+      text-decoration: none;
     }
 
-    .theme-toggle-btn:hover {
+    .action-btn:hover {
       opacity: 0.8;
     }
 
@@ -107,7 +128,7 @@
       border-radius: 12px;
       margin-bottom: 24px;
       width: 100%;
-      max-width: 480px;
+      max-width: 680px;
       border: 1px solid var(--card-border);
     }
 
@@ -115,34 +136,84 @@
       flex: 1;
       border: none;
       background: transparent;
-      padding: 9px 16px;
-      border-radius: 8px;
+      padding: 10px 18px;
+      border-radius: 9px;
       font-size: 14px;
       font-weight: 500;
       color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .segmented-control button.active {
       background: var(--segmented-active);
       color: var(--text);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      font-weight: 600;
+    }
+
+    .toolbar-bar {
+      width: 100%;
+      max-width: 1060px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      width: 280px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--badge-info-text);
+    }
+
+    .status-text {
+      font-size: 13px;
+      color: var(--text-muted);
     }
 
     .content-area {
       width: 100%;
-      max-width: 900px;
+      max-width: 1060px;
     }
 
     .card {
       background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--card-border);
-      border-radius: 18px;
+      border-radius: 20px;
       overflow: hidden;
       box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .card-header-block {
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid var(--table-border);
+    }
+
+    .card-header-block h2 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .card-header-block p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
     }
 
     table {
@@ -153,17 +224,17 @@
 
     th {
       background: var(--table-header);
-      padding: 16px 20px;
-      font-size: 13px;
+      padding: 16px 22px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       border-bottom: 1px solid var(--table-border);
     }
 
     td {
-      padding: 18px 20px;
+      padding: 18px 22px;
       font-size: 14px;
       border-bottom: 1px solid var(--table-border);
       vertical-align: top;
@@ -174,15 +245,14 @@
       border-bottom: none;
     }
 
-    .site-link {
+    .item-title {
       font-weight: 600;
       color: var(--text);
-      text-decoration: none;
-      display: inline-block;
-      margin-bottom: 4px;
+      display: block;
+      margin-bottom: 3px;
     }
 
-    .site-note {
+    .item-subtitle {
       font-size: 13px;
       color: var(--text-muted);
     }
@@ -196,14 +266,58 @@
       white-space: nowrap;
     }
 
+    .badge-high {
+      background: var(--badge-high-bg);
+      color: var(--badge-high-text);
+    }
+
     .badge-medium {
       background: var(--badge-medium-bg);
       color: var(--badge-medium-text);
     }
 
+    .badge-low {
+      background: var(--badge-low-bg);
+      color: var(--badge-low-text);
+    }
+
     .badge-info {
       background: var(--badge-info-bg);
       color: var(--badge-info-text);
+    }
+
+    .endpoints-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .endpoint-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      width: fit-content;
+      font-family: inherit;
+    }
+
+    .copy-chip {
+      background: none;
+      border: none;
+      color: var(--badge-info-text);
+      font-size: 11px;
+      cursor: pointer;
+      font-weight: 600;
+      padding: 0;
+    }
+
+    .copy-chip:hover {
+      text-decoration: underline;
     }
 
     .tab-content {
@@ -213,6 +327,21 @@
     .tab-content.active {
       display: block;
     }
+
+    .notice-banner {
+      padding: 16px 20px;
+      border-radius: 12px;
+      background: var(--tag-bg);
+      border: 1px solid var(--card-border);
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .notice-banner strong {
+      color: var(--text);
+    }
   </style>
 </head>
 <body>
@@ -220,42 +349,254 @@
   <header>
     <div class="title-group">
       <h1>Brindavan Internet Audit</h1>
-      <p>Report on gateway filter policies, bypass risks, and blocked academic resources</p>
+      <p>Gateway security inspection, policy oversights, and academic access report</p>
     </div>
-    <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
-      <span id="themeLabel">Dark Appearance</span>
-    </button>
+    <div class="header-actions">
+      <button class="action-btn" onclick="exportAuditReport()">Export Report</button>
+      <button class="action-btn" id="themeToggle" onclick="toggleTheme()">
+        <span id="themeLabel">Dark Appearance</span>
+      </button>
+    </div>
   </header>
 
   <div class="segmented-control">
-    <button class="active" id="tabVulnerabilitiesBtn" onclick="showTab('vulnerabilities')">Vulnerabilities</button>
+    <button class="active" id="tabVulnBtn" onclick="showTab('vulnerabilities')">Vulnerabilities</button>
+    <button id="tabVpnBtn" onclick="showTab('vpnEndpoints')">VPN Endpoints</button>
     <button id="tabBlockedBtn" onclick="showTab('blocked')">Genuine Websites Blocked</button>
+  </div>
+
+  <div class="toolbar-bar">
+    <input type="text" id="filterInput" class="search-input" placeholder="Filter items in current view..." oninput="filterCurrentTable()">
+    <span class="status-text" id="statusCount">Showing all entries</span>
   </div>
 
   <div class="content-area">
 
-    <!-- Vulnerabilities Tab -->
+    <!-- TAB 1: VULNERABILITIES -->
     <div id="vulnerabilities" class="tab-content active">
       <div class="card">
-        <table>
+        <div class="card-header-block">
+          <h2>Network Policy Loopholes</h2>
+          <p>Identified configuration gaps that allow perimeter filtering controls to be bypassed</p>
+        </div>
+        <table id="tableVuln">
           <thead>
             <tr>
-              <th style="width: 35%;">Vulnerability</th>
-              <th style="width: 20%;">Risk Level</th>
-              <th style="width: 45%;">Details</th>
+              <th style="width: 32%;">Vulnerability</th>
+              <th style="width: 18%;">Risk Level</th>
+              <th style="width: 50%;">Details & Operational Impact</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>
-                <span class="site-link">Microsoft Edge Add-ons Store Allowed</span>
-                <div class="site-note">microsoftedge.microsoft.com/addons</div>
+                <span class="item-title">Microsoft Edge Add-ons Store Open</span>
+                <span class="item-subtitle">microsoftedge.microsoft.com/addons</span>
+              </td>
+              <td><span class="badge badge-high">High</span></td>
+              <td>Access to the official Edge extension repository is unblocked. Users can install browser proxy extensions directly to bypass captive portal limits without needing administrator credentials on the computer.</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="item-title">Chrome & Mozilla Add-on Hubs Accessible</span>
+                <span class="item-subtitle">chromewebstore.google.com / addons.mozilla.org</span>
+              </td>
+              <td><span class="badge badge-high">High</span></td>
+              <td>Allows users on alternative browsers to add one-click proxy utilities that wrap outbound web traffic in encrypted HTTPS tunnels, sidestepping Sophos web category restrictions.</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="item-title">Encrypted DNS Enabled in Browsers</span>
+                <span class="item-subtitle">DNS-over-HTTPS (DoH)</span>
+              </td>
+              <td><span class="badge badge-high">High</span></td>
+              <td>Modern browsers send encrypted domain name queries directly to public resolvers (such as Cloudflare or Google). This hides visited domains from local gateway monitors unless public DoH servers are restricted.</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="item-title">Public Web Translators Operating as Proxies</span>
+                <span class="item-subtitle">translate.google.com / bing.com/translator</span>
+              </td>
+              <td><span class="badge badge-medium">Medium</span></td>
+              <td>Users can submit restricted URLs into web translation portals. The third-party server fetches and displays the page content within its own allowed frame.</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="item-title">Dual-Stack IPv6 Bypass</span>
+                <span class="item-subtitle">Unrestricted IPv6 Network Interface</span>
+              </td>
+              <td><span class="badge badge-medium">Medium</span></td>
+              <td>If web categorization rules are bound strictly to IPv4 routing, destinations reachable over native IPv6 connections may bypass captive portal policies entirely.</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="item-title">Public Web Snapshot & Archive Mirrors</span>
+                <span class="item-subtitle">archive.org / webcache.googleusercontent.com</span>
+              </td>
+              <td><span class="badge badge-low">Low</span></td>
+              <td>Enables browsing cached snapshots of restricted research or academic materials without establishing a direct link to the original blocked server.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 2: VPN ENDPOINTS -->
+    <div id="vpnEndpoints" class="tab-content">
+      <div class="notice-banner">
+        <strong>Administrator Advisory:</strong> Browser-based VPNs function as encrypted TLS web proxies over port 443. While blocking the domains and fallback nodes listed below prevents tunnel initialization, complete mitigation requires disabling extension installation centrally.
+      </div>
+      <div class="card">
+        <div class="card-header-block">
+          <h2>Browser VPNs, Control APIs & Fallback Nodes</h2>
+          <p>Domain endpoints and fallback routing infrastructure utilized by common browser add-ons</p>
+        </div>
+        <table id="tableVpn">
+          <thead>
+            <tr>
+              <th style="width: 25%;">Extension Name</th>
+              <th style="width: 35%;">Primary Endpoints & Auth</th>
+              <th style="width: 40%;">Fallback Endpoints & Node Hosts</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="item-title">1VPN</span>
+                <span class="item-subtitle">Edge & Chrome Add-on</span>
               </td>
               <td>
-                <span class="badge badge-medium">High</span>
+                <div class="endpoints-container">
+                  <div class="endpoint-pill">
+                    <span>api.1vpn.org</span>
+                    <button class="copy-chip" onclick="copyText('api.1vpn.org')">Copy</button>
+                  </div>
+                  <div class="endpoint-pill">
+                    <span>1vpn.org / auth.1vpn.org</span>
+                    <button class="copy-chip" onclick="copyText('auth.1vpn.org')">Copy</button>
+                  </div>
+                </div>
               </td>
               <td>
-                Unrestricted access to this store permits installation of third-party VPN and proxy extensions directly into the browser, enabling users to circumvent Sophos network controls.
+                <div class="endpoints-container">
+                  <div class="endpoint-pill">
+                    <span>cdn.1vpn.org / *.1vpn.org</span>
+                    <button class="copy-chip" onclick="copyText('cdn.1vpn.org')">Copy</button>
+                  </div>
+                  <span class="item-subtitle">Egress servers hosted on DigitalOcean, OVHcloud, and Hetzner VPS pools.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="item-title">Urban VPN Proxy</span>
+                <span class="item-subtitle">Universal Browser Add-on</span>
+              </td>
+              <td>
+                <div class="endpoints-container">
+                  <div class="endpoint-pill">
+                    <span>api-pro.urban-vpn.com</span>
+                    <button class="copy-chip" onclick="copyText('api-pro.urban-vpn.com')">Copy</button>
+                  </div>
+                  <div class="endpoint-pill">
+                    <span>authentication.urban-vpn.com</span>
+                    <button class="copy-chip" onclick="copyText('authentication.urban-vpn.com')">Copy</button>
+                  </div>
+                  <div class="endpoint-pill">
+                    <span>config.urban-vpn.com</span>
+                    <button class="copy-chip" onclick="copyText('config.urban-vpn.com')">Copy</button>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="endpoints-container">
+                  <div class="endpoint-pill">
+                    <span>*.urban-vpn.com</span>
+                    <button class="copy-chip" onclick="copyText('*.urban-vpn.com')">Copy</button>
+                  </div>
+                  <div class="endpoint-pill">
+                    <span>config-toolbar.urban-vpn.com</span>
+                    <button class="copy-chip" onclick="copyText('config-toolbar.urban-vpn.com')">Copy</button>
+                  </div>
+                  <span class="item-subtitle">Peer-assisted relay network with regional hostnames (p-*.urban-vpn.com).</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="item-title">Touch VPN</span>
+                <span class="item-subtitle">Chrome, Edge & Firefox</span>
+              </td>
+              <td>
+                <div class="endpoints-container">
+                  <div class="endpoint-pill">
+                    <span>touchvpn.net / api.touchvpn.net</span>
+                    <button class="copy-chip" onclick="copyText('touchvpn.net')">Copy</button>
+                  </div>
+                  <div class="endpoint-pill">
+                    <span>backend.northghost.com</span>
+                    <button class="copy-chip" onclick="copyText('backend.northghost.com')">Copy</button>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="endpoints-container">
+                  <div class="endpoint-pill">
+                    <span>*.touchvpn.net / *.northghost.com</span>
+                    <button class="copy-chip" onclick="copyText('*.northghost.com')">Copy</button>
+                  </div>
+                  <span class="item-subtitle">Upstream infrastructure operated through Pango / AnchorFree cloud relays.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="item-title">ZenMate VPN</span>
+                <span class="item-subtitle">Multi-Platform Add-on</span>
+              </td>
+              <td>
+                <div class="endpoints-container">
+                  <div class="endpoint-pill">
+                    <span>zenmate.com / api.zenmate.com</span>
+                    <button class="copy-chip" onclick="copyText('zenmate.com')">Copy</button>
+                  </div>
+                  <div class="endpoint-pill">
+                    <span>auth.zenmate.com</span>
+                    <button class="copy-chip" onclick="copyText('auth.zenmate.com')">Copy</button>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="endpoints-container">
+                  <div class="endpoint-pill">
+                    <span>*.zenguard.biz / *.zenmate.info</span>
+                    <button class="copy-chip" onclick="copyText('*.zenguard.biz')">Copy</button>
+                  </div>
+                  <span class="item-subtitle">Tunnel egress operated through CyberGhost / Kape server networks.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="item-title">SetupVPN</span>
+                <span class="item-subtitle">Browser Extension Proxy</span>
+              </td>
+              <td>
+                <div class="endpoints-container">
+                  <div class="endpoint-pill">
+                    <span>setupvpn.com / api.setupvpn.com</span>
+                    <button class="copy-chip" onclick="copyText('setupvpn.com')">Copy</button>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="endpoints-container">
+                  <div class="endpoint-pill">
+                    <span>*.setupvpn.com</span>
+                    <button class="copy-chip" onclick="copyText('*.setupvpn.com')">Copy</button>
+                  </div>
+                  <span class="item-subtitle">Backup proxy controllers hosted on Linode and Leaseweb IP pools.</span>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -263,39 +604,35 @@
       </div>
     </div>
 
-    <!-- Genuine Websites Blocked Tab -->
+    <!-- TAB 3: GENUINE WEBSITES BLOCKED -->
     <div id="blocked" class="tab-content">
       <div class="card">
-        <table>
+        <div class="card-header-block">
+          <h2>Academic & Career Sites Restricted</h2>
+          <p>Verified essential destinations misclassified by filters, creating motivation for VPN usage</p>
+        </div>
+        <table id="tableBlocked">
           <thead>
             <tr>
-              <th style="width: 40%;">Website</th>
+              <th style="width: 35%;">Website</th>
               <th style="width: 25%;">Category</th>
-              <th style="width: 35%;">Observations</th>
+              <th style="width: 40%;">Observations & Bypass Incentive</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>
-                <span class="site-link">typingtest.me/certificate</span>
+                <span class="item-title">typingtest.me/certificate</span>
               </td>
-              <td>
-                <span class="badge badge-info">Skill Certification</span>
-              </td>
-              <td>
-                Academic website used for earning basic typing certificates. Blocked by Sophos web filter, creating an incentive to use VPNs to access it.
-              </td>
+              <td><span class="badge badge-info">Skill Certification</span></td>
+              <td>Legitimate platform used by students to practice keyboard efficiency and generate verified certificates. Filtering this forces students to seek proxy methods.</td>
             </tr>
             <tr>
               <td>
-                <span class="site-link">nda.nic.in</span>
+                <span class="item-title">nda.nic.in</span>
               </td>
-              <td>
-                <span class="badge badge-info">Official Defence Portal</span>
-              </td>
-              <td>
-                National Defence resource website under the government domain (.nic.in). Inadvertently restricted by the firewall, driving users to find alternate access routes.
-              </td>
+              <td><span class="badge badge-info">National Defence Portal</span></td>
+              <td>Official National Defence portal hosted under the government .nic.in domain. Misclassified by automated filtering, interrupting research and career inquiries.</td>
             </tr>
           </tbody>
         </table>
@@ -305,7 +642,10 @@
   </div>
 
   <script>
+    let activeTabId = 'vulnerabilities';
+
     function showTab(tabId) {
+      activeTabId = tabId;
       document.querySelectorAll('.tab-content').forEach(function(content) {
         content.classList.remove('active');
       });
@@ -317,10 +657,15 @@
       document.getElementById(tabId).classList.add('active');
 
       if (tabId === 'vulnerabilities') {
-        document.getElementById('tabVulnerabilitiesBtn').classList.add('active');
+        document.getElementById('tabVulnBtn').classList.add('active');
+      } else if (tabId === 'vpnEndpoints') {
+        document.getElementById('tabVpnBtn').classList.add('active');
       } else {
         document.getElementById('tabBlockedBtn').classList.add('active');
       }
+
+      document.getElementById('filterInput').value = '';
+      resetTableFilter();
     }
 
     function toggleTheme() {
@@ -334,6 +679,55 @@
         html.setAttribute('data-theme', 'dark');
         label.textContent = 'Light Appearance';
       }
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(function() {
+        alert('Copied endpoint: ' + text);
+      }).catch(function() {
+        alert('Endpoint: ' + text);
+      });
+    }
+
+    function filterCurrentTable() {
+      const query = document.getElementById('filterInput').value.toLowerCase();
+      let tableId = 'tableVuln';
+      if (activeTabId === 'vpnEndpoints') tableId = 'tableVpn';
+      if (activeTabId === 'blocked') tableId = 'tableBlocked';
+
+      const rows = document.querySelectorAll('#' + tableId + ' tbody tr');
+      let visibleCount = 0;
+
+      rows.forEach(function(row) {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(query)) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      const statusEl = document.getElementById('statusCount');
+      if (query.trim() === '') {
+        statusEl.textContent = 'Showing all entries';
+      } else {
+        statusEl.textContent = 'Showing ' + visibleCount + ' matching result(s)';
+      }
+    }
+
+    function resetTableFilter() {
+      const tables = ['tableVuln', 'tableVpn', 'tableBlocked'];
+      tables.forEach(function(id) {
+        document.querySelectorAll('#' + id + ' tbody tr').forEach(function(r) {
+          r.style.display = '';
+        });
+      });
+      document.getElementById('statusCount').textContent = 'Showing all entries';
+    }
+
+    function exportAuditReport() {
+      window.print();
     }
   </script>
 
