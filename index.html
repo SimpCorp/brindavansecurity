@@ -1,0 +1,46 @@
+<script>
+  async function toggleVulnerabilities() {
+    const section = document.getElementById('vulnerability-section');
+    const btn = document.getElementById('toggle-btn');
+
+    if (section.classList.contains('visible')) {
+      section.classList.remove('visible');
+      setTimeout(() => { section.style.display = 'none'; }, 400);
+      btn.textContent = 'Current Vulnerabilities';
+    } else {
+      btn.textContent = 'Connecting to Sophos...';
+
+      try {
+        // Calls the Cloudflare function backend
+        const res = await fetch('/api/sophos');
+        const data = await res.json();
+
+        renderTable(data.vulnerabilities);
+
+        section.style.display = 'block';
+        setTimeout(() => { section.classList.add('visible'); }, 10);
+        btn.textContent = 'Hide Vulnerabilities';
+      } catch (err) {
+        console.error('API Error:', err);
+        btn.textContent = 'Current Vulnerabilities';
+      }
+    }
+  }
+
+  function renderTable(items) {
+    const tbody = document.querySelector('table tbody');
+    tbody.innerHTML = items.map(item => `
+      <tr>
+        <td class="item-id">${item.id}</td>
+        <td><span class="severity-tag ${item.severity}">${item.severity}</span></td>
+        <td>
+          <strong>${item.title}</strong>
+          <div style="color: var(--text-secondary); font-size: 13px; margin-top: 2px;">
+            ${item.desc}
+          </div>
+        </td>
+        <td>${item.target}</td>
+      </tr>
+    `).join('');
+  }
+</script>
