@@ -7,70 +7,86 @@
   <style>
     :root {
       --bg: #f5f5f7;
-      --card-bg: rgba(255, 255, 255, 0.82);
-      --card-border: rgba(0, 0, 0, 0.08);
+      --bg-gradient: radial-gradient(circle at 15% 15%, rgba(0, 113, 227, 0.05) 0%, transparent 40%),
+                     radial-gradient(circle at 85% 85%, rgba(255, 149, 0, 0.04) 0%, transparent 45%);
+      --card-bg: rgba(255, 255, 255, 0.65);
+      --card-border: rgba(255, 255, 255, 0.7);
+      --card-border-edge: rgba(0, 0, 0, 0.06);
       --text: #1d1d1f;
       --text-muted: #86868b;
-      --nav-bg: rgba(255, 255, 255, 0.75);
-      --segmented-bg: rgba(0, 0, 0, 0.06);
+      --segmented-bg: rgba(118, 118, 128, 0.12);
       --segmented-active: #ffffff;
-      --table-header: rgba(0, 0, 0, 0.025);
-      --table-border: rgba(0, 0, 0, 0.07);
-      --badge-high-bg: #ffebee;
-      --badge-high-text: #d32f2f;
-      --badge-medium-bg: #fff1d6;
-      --badge-medium-text: #b25e02;
-      --badge-low-bg: #e8f5e9;
-      --badge-low-text: #2e7d32;
-      --badge-info-bg: #e3f2fd;
-      --badge-info-text: #0b6bc7;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-      --tag-bg: rgba(0, 0, 0, 0.04);
-      --tag-border: rgba(0, 0, 0, 0.08);
-      --input-bg: #ffffff;
+      --segmented-active-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.06);
+      --table-header: rgba(0, 0, 0, 0.02);
+      --table-border: rgba(0, 0, 0, 0.05);
+      --badge-high-bg: rgba(255, 59, 48, 0.12);
+      --badge-high-text: #e0281b;
+      --badge-medium-bg: rgba(255, 149, 0, 0.14);
+      --badge-medium-text: #b25000;
+      --badge-low-bg: rgba(52, 199, 89, 0.14);
+      --badge-low-text: #248a3d;
+      --badge-info-bg: rgba(0, 122, 255, 0.12);
+      --badge-info-text: #0062cc;
+      --shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+      --tag-bg: rgba(0, 0, 0, 0.035);
+      --tag-border: rgba(0, 0, 0, 0.06);
+      --input-bg: rgba(255, 255, 255, 0.75);
+      --btn-bg: rgba(255, 255, 255, 0.7);
+      --btn-bg-hover: rgba(255, 255, 255, 0.95);
+      --accent-blue: #0071e3;
     }
 
     [data-theme="dark"] {
       --bg: #000000;
-      --card-bg: rgba(28, 28, 30, 0.78);
+      --bg-gradient: radial-gradient(circle at 20% 20%, rgba(10, 132, 255, 0.09) 0%, transparent 45%),
+                     radial-gradient(circle at 80% 80%, rgba(255, 159, 10, 0.06) 0%, transparent 50%);
+      --card-bg: rgba(28, 28, 30, 0.68);
       --card-border: rgba(255, 255, 255, 0.12);
+      --card-border-edge: rgba(255, 255, 255, 0.07);
       --text: #f5f5f7;
-      --text-muted: #a1a1a6;
-      --nav-bg: rgba(28, 28, 30, 0.75);
-      --segmented-bg: rgba(255, 255, 255, 0.1);
-      --segmented-active: rgba(255, 255, 255, 0.22);
-      --table-header: rgba(255, 255, 255, 0.04);
-      --table-border: rgba(255, 255, 255, 0.08);
-      --badge-high-bg: rgba(255, 69, 58, 0.22);
+      --text-muted: #98989d;
+      --segmented-bg: rgba(118, 118, 128, 0.24);
+      --segmented-active: rgba(99, 99, 102, 0.6);
+      --segmented-active-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 0.5px 0.5px rgba(255, 255, 255, 0.2);
+      --table-header: rgba(255, 255, 255, 0.025);
+      --table-border: rgba(255, 255, 255, 0.06);
+      --badge-high-bg: rgba(255, 69, 58, 0.2);
       --badge-high-text: #ff453a;
-      --badge-medium-bg: rgba(255, 159, 10, 0.22);
+      --badge-medium-bg: rgba(255, 159, 10, 0.2);
       --badge-medium-text: #ff9f0a;
-      --badge-low-bg: rgba(48, 209, 88, 0.22);
+      --badge-low-bg: rgba(48, 209, 88, 0.2);
       --badge-low-text: #30d158;
-      --badge-info-bg: rgba(10, 132, 255, 0.22);
-      --badge-info-text: #64d2ff;
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-      --tag-bg: rgba(255, 255, 255, 0.06);
-      --tag-border: rgba(255, 255, 255, 0.1);
-      --input-bg: rgba(44, 44, 46, 0.8);
+      --badge-info-bg: rgba(10, 132, 255, 0.2);
+      --badge-info-text: #5ac8fa;
+      --shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.7);
+      --tag-bg: rgba(255, 255, 255, 0.05);
+      --tag-border: rgba(255, 255, 255, 0.08);
+      --input-bg: rgba(44, 44, 46, 0.65);
+      --btn-bg: rgba(44, 44, 46, 0.65);
+      --btn-bg-hover: rgba(58, 58, 60, 0.85);
+      --accent-blue: #0a84ff;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
     }
 
     body {
       background-color: var(--bg);
+      background-image: var(--bg-gradient);
+      background-attachment: fixed;
       color: var(--text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 20px 60px;
+      padding: 0 24px 72px;
+      transition: background-color 0.4s ease;
     }
 
     header {
@@ -79,77 +95,113 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 28px 0;
+      padding: 36px 0 26px;
       border-bottom: 1px solid var(--table-border);
-      margin-bottom: 28px;
+      margin-bottom: 30px;
+      gap: 18px;
+      flex-wrap: wrap;
     }
 
     .title-group h1 {
-      font-size: 28px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
+      font-size: 27px;
+      font-weight: 700;
+      letter-spacing: -0.035em;
     }
 
     .title-group p {
-      font-size: 14px;
+      font-size: 13.5px;
       color: var(--text-muted);
       margin-top: 4px;
+      letter-spacing: -0.01em;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 9px;
+      flex-wrap: wrap;
     }
 
     .action-btn {
-      background: var(--segmented-bg);
-      border: 1px solid var(--card-border);
+      background: var(--btn-bg);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border: 1px solid var(--card-border-edge);
       color: var(--text);
-      padding: 8px 16px;
+      padding: 7px 15px;
       border-radius: 980px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 500;
+      letter-spacing: -0.01em;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       text-decoration: none;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .action-btn:hover {
-      opacity: 0.8;
+      background: var(--btn-bg-hover);
+      transform: translateY(-0.5px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
+    }
+
+    .action-btn:active {
+      transform: translateY(0.5px);
+    }
+
+    .action-btn.primary-action {
+      background: var(--accent-blue);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .action-btn.primary-action:hover {
+      opacity: 0.92;
+      background: var(--accent-blue);
+      box-shadow: 0 4px 12px rgba(0, 113, 227, 0.35);
+    }
+
+    .action-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke-width: 2.2;
     }
 
     .segmented-control {
       display: flex;
       background: var(--segmented-bg);
-      padding: 4px;
-      border-radius: 12px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 3px;
+      border-radius: 11px;
       margin-bottom: 24px;
       width: 100%;
-      max-width: 680px;
-      border: 1px solid var(--card-border);
+      max-width: 660px;
+      border: 0.5px solid var(--card-border-edge);
     }
 
     .segmented-control button {
       flex: 1;
       border: none;
       background: transparent;
-      padding: 10px 18px;
-      border-radius: 9px;
-      font-size: 14px;
+      padding: 7.5px 16px;
+      border-radius: 8.5px;
+      font-size: 13px;
       font-weight: 500;
+      letter-spacing: -0.01em;
       color: var(--text-muted);
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
       white-space: nowrap;
     }
 
     .segmented-control button.active {
       background: var(--segmented-active);
       color: var(--text);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      box-shadow: var(--segmented-active-shadow);
       font-weight: 600;
     }
 
@@ -159,29 +211,40 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       gap: 12px;
       flex-wrap: wrap;
     }
 
     .search-input {
       background: var(--input-bg);
-      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border-edge);
       color: var(--text);
-      padding: 10px 16px;
+      padding: 8px 14px;
       border-radius: 10px;
-      font-size: 14px;
-      width: 280px;
+      font-size: 13px;
+      width: 260px;
       outline: none;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .search-input:focus {
-      border-color: var(--badge-info-text);
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+      opacity: 0.8;
     }
 
     .status-text {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--text-muted);
+      font-weight: 400;
     }
 
     .content-area {
@@ -189,31 +252,33 @@
       max-width: 1060px;
     }
 
+    /* Glass Card */
     .card {
       background: var(--card-bg);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
       border: 1px solid var(--card-border);
-      border-radius: 20px;
+      border-radius: 18px;
       overflow: hidden;
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.15);
       margin-bottom: 24px;
     }
 
     .card-header-block {
-      padding: 22px 24px 18px;
+      padding: 20px 24px 16px;
       border-bottom: 1px solid var(--table-border);
     }
 
     .card-header-block h2 {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
+      letter-spacing: -0.02em;
     }
 
     .card-header-block p {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--text-muted);
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
     table {
@@ -224,18 +289,18 @@
 
     th {
       background: var(--table-header);
-      padding: 16px 22px;
-      font-size: 12px;
+      padding: 12px 24px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       border-bottom: 1px solid var(--table-border);
     }
 
     td {
-      padding: 18px 22px;
-      font-size: 14px;
+      padding: 16px 24px;
+      font-size: 13.5px;
       border-bottom: 1px solid var(--table-border);
       vertical-align: top;
       line-height: 1.5;
@@ -249,20 +314,23 @@
       font-weight: 600;
       color: var(--text);
       display: block;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
+      letter-spacing: -0.01em;
     }
 
     .item-subtitle {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
+      line-height: 1.4;
     }
 
     .badge {
       display: inline-block;
-      padding: 4px 10px;
+      padding: 3px 9px;
       border-radius: 980px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
+      letter-spacing: -0.01em;
       white-space: nowrap;
     }
 
@@ -296,24 +364,26 @@
       display: inline-flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      gap: 12px;
       background: var(--tag-bg);
       border: 1px solid var(--tag-border);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 13px;
+      padding: 5px 10px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       width: fit-content;
-      font-family: inherit;
+      color: var(--text);
     }
 
     .copy-chip {
       background: none;
       border: none;
-      color: var(--badge-info-text);
+      color: var(--accent-blue);
       font-size: 11px;
       cursor: pointer;
       font-weight: 600;
       padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
     }
 
     .copy-chip:hover {
@@ -329,18 +399,47 @@
     }
 
     .notice-banner {
-      padding: 16px 20px;
+      padding: 14px 18px;
       border-radius: 12px;
       background: var(--tag-bg);
-      border: 1px solid var(--card-border);
-      margin-bottom: 20px;
-      font-size: 13px;
-      line-height: 1.5;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border-edge);
+      margin-bottom: 18px;
+      font-size: 12.5px;
+      line-height: 1.45;
       color: var(--text-muted);
     }
 
     .notice-banner strong {
       color: var(--text);
+    }
+
+    /* Native-style Toast */
+    #appleToast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(30, 30, 32, 0.82);
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      color: #ffffff;
+      padding: 9px 18px;
+      border-radius: 980px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 0.5px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    #appleToast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
     }
   </style>
 </head>
@@ -352,27 +451,56 @@
       <p>Gateway security inspection, policy oversights, and academic access report</p>
     </div>
     <div class="header-actions">
-      <button class="action-btn" onclick="exportAuditReport()">Export Report</button>
-     <a
-    class="action-btn"
-    href="https://drive.google.com/file/d/1xYw-rtrZy1lVhZ7pfIa2AP1zOHycN7bL/view?usp=sharing"
-    aria-label="Download Security Tool"
->Download Security Tool</a>
-      
+      <!-- Usage Guide PDF Button -->
+      <a 
+        class="action-btn" 
+        href="https://raw.githubusercontent.com/SimpCorp/brindavansecurity/main/SecurityTool%20Usage.pdf" 
+        download="SecurityTool_Usage.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download Security Tool Usage Guide"
+      >
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+        </svg>
+        <span>Usage Guide</span>
+      </a>
+
+      <!-- Security Tool Download -->
+      <a
+        class="action-btn primary-action"
+        href="https://drive.google.com/file/d/1xYw-rtrZy1lVhZ7pfIa2AP1zOHycN7bL/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download Security Tool"
+      >
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+        </svg>
+        <span>Download Tool</span>
+      </a>
+
+      <button class="action-btn" onclick="exportAuditReport()">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.656h10.5z" />
+        </svg>
+        <span>Export</span>
+      </button>
+
       <button class="action-btn" id="themeToggle" onclick="toggleTheme()">
-        <span id="themeLabel">Dark Appearance</span>
+        <span id="themeLabel">Dark</span>
       </button>
     </div>
   </header>
 
-  <div class="segmented-control">
-    <button class="active" id="tabVulnBtn" onclick="showTab('vulnerabilities')">Vulnerabilities</button>
-    <button id="tabVpnBtn" onclick="showTab('vpnEndpoints')">VPN Endpoints</button>
-    <button id="tabBlockedBtn" onclick="showTab('blocked')">Genuine Websites Blocked</button>
+  <div class="segmented-control" role="tablist">
+    <button class="active" id="tabVulnBtn" role="tab" onclick="showTab('vulnerabilities')">Vulnerabilities</button>
+    <button id="tabVpnBtn" role="tab" onclick="showTab('vpnEndpoints')">VPN Endpoints</button>
+    <button id="tabBlockedBtn" role="tab" onclick="showTab('blocked')">Genuine Websites Blocked</button>
   </div>
 
   <div class="toolbar-bar">
-    <input type="text" id="filterInput" class="search-input" placeholder="Filter items in current view..." oninput="filterCurrentTable()">
+    <input type="text" id="filterInput" class="search-input" placeholder="Search entries..." oninput="filterCurrentTable()">
     <span class="status-text" id="statusCount">Showing all entries</span>
   </div>
 
@@ -647,6 +775,8 @@
 
   </div>
 
+  <div id="appleToast">Copied to clipboard</div>
+
   <script>
     let activeTabId = 'vulnerabilities';
 
@@ -680,19 +810,32 @@
 
       if (html.getAttribute('data-theme') === 'dark') {
         html.removeAttribute('data-theme');
-        label.textContent = 'Dark Appearance';
+        label.textContent = 'Dark';
       } else {
         html.setAttribute('data-theme', 'dark');
-        label.textContent = 'Light Appearance';
+        label.textContent = 'Light';
       }
     }
 
+    function showToast(msg) {
+      const toast = document.getElementById('appleToast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+
     function copyText(text) {
-      navigator.clipboard.writeText(text).then(function() {
-        alert('Copied endpoint: ' + text);
-      }).catch(function() {
-        alert('Endpoint: ' + text);
-      });
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('Copied: ' + text);
+        }).catch(() => {
+          showToast('Copied: ' + text);
+        });
+      } else {
+        showToast('Copied: ' + text);
+      }
     }
 
     function filterCurrentTable() {
